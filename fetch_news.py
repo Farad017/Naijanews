@@ -1,7 +1,6 @@
 import requests
-import os
 
-# Your new SnagFlow Cloudflare URL
+# This is your SnagFlow Cloudflare URL
 FEED_URL = "https://snagflow-rss-bridge.agbontan2003.workers.dev/feed?id=ec79eabb-648c-4dad-8558-6fbe12926c5a"
 
 def main():
