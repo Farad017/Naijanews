@@ -2,8 +2,9 @@ name: Update Nairaland Feed
 
 on:
   schedule:
-    # Runs every 4 hours (00:00, 04:00, 08:00, etc.)
-    - cron: '0 */4 * * *'
+    # Runs every 8 hours (480 minutes)
+    # Minute 0 of hours 0, 8, and 16 UTC
+    - cron: '0 0,8,16 * * *'
   workflow_dispatch:
 
 permissions:
