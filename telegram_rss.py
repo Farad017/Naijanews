@@ -8,8 +8,8 @@ CHAT_ID = os.getenv("CHAT_ID")
 RSS_URL = "https://farad017.github.io/Naijanews/feed.xml"
 STATE_FILE = "posted_links.json"
 
-# 🛑 SET TO True FOR TESTING, False FOR LIVE
-TEST_MODE = True 
+# 🟢 LIVE MODE IS NOW ON
+TEST_MODE = False 
 
 def load_posted_links():
     if os.path.exists(STATE_FILE):
@@ -22,7 +22,8 @@ def save_posted_links(links):
         json.dump(list(links), f)
 
 def send_telegram_message(title, link):
-    text = f"📰 **{title}**\n\n🔗 [Read on na1ra1and]({link})"
+    # Changed the text to "read this article"
+    text = f"📰 **{title}**\n\n🔗 [read this article]({link})"
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     payload = {
         "chat_id": CHAT_ID,
@@ -42,7 +43,6 @@ def main():
     feed = feedparser.parse(RSS_URL)
     new_count = 0
 
-    # Iterate in reverse so the oldest new post is sent first
     for entry in reversed(feed.entries):
         link = entry.link
         if link not in posted:
@@ -50,7 +50,6 @@ def main():
             posted.add(link)
             new_count += 1
             
-            # If in test mode, break the loop after 1 message
             if TEST_MODE:
                 print("Test Mode: Stopping after 1 message.")
                 break
