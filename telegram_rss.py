@@ -8,6 +8,9 @@ CHAT_ID = os.getenv("CHAT_ID")
 RSS_URL = "https://farad017.github.io/Naijanews/feed.xml"
 STATE_FILE = "posted_links.json"
 
+# 🛑 SET TO True FOR TESTING, False FOR LIVE
+TEST_MODE = True 
+
 def load_posted_links():
     if os.path.exists(STATE_FILE):
         with open(STATE_FILE, 'r') as f:
@@ -46,6 +49,11 @@ def main():
             send_telegram_message(entry.title, link)
             posted.add(link)
             new_count += 1
+            
+            # If in test mode, break the loop after 1 message
+            if TEST_MODE:
+                print("Test Mode: Stopping after 1 message.")
+                break
 
     if new_count > 0:
         save_posted_links(posted)
